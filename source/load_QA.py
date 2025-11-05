@@ -28,8 +28,8 @@ for col in ['question', 'answer', 'ecole', 'langue']:
 
 # --- 5. Chargement du modèle d'embedding ---
 # model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
-model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
-
+# model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
+model = SentenceTransformer("intfloat/multilingual-e5-base")
 
 # --- 6. Génération des embeddings séparés ---
 df["question_embedding"] = df["question"].fillna("").apply(lambda x: model.encode(x))

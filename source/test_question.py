@@ -4,7 +4,8 @@ from sentence_transformers import SentenceTransformer
 # --- Charger la base LanceDB et le modèle ---
 db = lancedb.connect("lancedb_questions")
 table = db.open_table("qa_table")
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+# model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+model = SentenceTransformer("intfloat/multilingual-e5-base")
 
 # --- Boucle interactive ---
 while True:
@@ -15,7 +16,7 @@ while True:
 
     # Encoder la question et faire la recherche
     query_vec = model.encode(query)
-    results = table.search(query_vec, vector_column_name="answer_embedding").limit(3).to_pandas()
+    results = table.search(query_vec, vector_column_name="question_embedding").limit(3).to_pandas()
 
     # Affichage des 3 résultats les plus pertinents
     print("\n🔍 Résultats les plus pertinents :\n")
