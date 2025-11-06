@@ -13,6 +13,9 @@ if 'show_review' not in st.session_state:
     st.session_state.show_review = False
 if 'conversation_closed' not in st.session_state:
     st.session_state.conversation_closed = False
+# NEW: flag pour clear l'input au prochain rerun
+if 'clear_user_input' not in st.session_state:
+    st.session_state.clear_user_input = False
 
 # Page config
 st.set_page_config(page_title="School Assistant Chatbot", page_icon="🎓", layout="wide")
@@ -110,35 +113,58 @@ elif not st.session_state.show_review:
     else:
         st.info("👋 Hello! How can I help you today?")
     
-    # Chat input area
+    # Chat input area (form => Enter triggers submit)
     st.markdown("---")
+
+    # NEW: clear avant de créer le widget (sinon Streamlit lève une exception)
+    if st.session_state.pop("clear_user_input", False):
+        # soit on supprime la clé...
+        if "user_input" in st.session_state:
+            del st.session_state["user_input"]
+        # ...ou on peut pré-initialiser: st.session_state["user_input"] = ""
+
+    with st.form(key="chat_form"):
+        col1, col2 = st.columns([4, 1])
+        with col1:
+            st.text_input(
+                "Type your question:",
+                key="user_input",
+                label_visibility="collapsed",
+                placeholder="Ask me anything about your school..."
+            )
+        with col2:
+            submitted = st.form_submit_button("Send 📤", use_container_width=True, type="primary")
     
-    col1, col2 = st.columns([4, 1])
+    user_input = (st.session_state.get("user_input") or "").strip()
     
-    with col1:
-        user_input = st.text_input("Type your question:", key="user_input", label_visibility="collapsed", placeholder="Ask me anything about your school...")
-    
-    with col2:
-        send_button = st.button("Send 📤", use_container_width=True, type="primary")
-    
-    if send_button and user_input:
+    if submitted and user_input:
         # Add user message
         st.session_state.chat_history.append({
             'role': 'user',
             'content': user_input,
             'timestamp': datetime.now().isoformat()
         })
-        
-        # Get bot response from assistant.py
-        bot_response = school_assistant(user_input, st.session_state.school_selected)
-        
-        # Add bot response
+
+        # Limit context (dernier 8 messages)
+        context_slice = st.session_state.chat_history[-2:]
+
+        # Spinner while generating
+        with st.spinner("⏳ L'assistant réfléchit..."):
+            bot_response = school_assistant(
+                question=user_input,
+                school=st.session_state.school_selected,
+                chat_history=context_slice
+            )
+
+        # Add assistant response
         st.session_state.chat_history.append({
             'role': 'assistant',
             'content': bot_response,
             'timestamp': datetime.now().isoformat()
         })
-        
+
+        # Clear input au prochain rerun (ne pas modifier le widget maintenant)
+        st.session_state.clear_user_input = True
         st.rerun()
     
     # Close and Review button

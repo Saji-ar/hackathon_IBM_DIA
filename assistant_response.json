@@ -1,0 +1,26 @@
+{
+    "model_id": "mistralai/mistral-medium-2505",
+    "model_version": "1.0.0",
+    "created_at": "2025-11-06T13:38:51.256Z",
+    "results": [
+        {
+            "generated_text": " Le quota d'absences autorisées est de 18 par semestre. Pour Executive Education, c'est 10 demi-journées par année académique.",
+            "generated_token_count": 36,
+            "input_token_count": 468,
+            "stop_reason": "eos_token"
+        }
+    ],
+    "system": {
+        "warnings": [
+            {
+                "message": "This model is a Non-IBM Product governed by a third-party license that may impose use restrictions and other obligations. By using this model you agree to its terms as identified in the following URL.",
+                "id": "disclaimer_warning",
+                "more_info": "https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-models.html?context=wx"
+            },
+            {
+                "message": "This API is legacy. Please consider using '/ml/v1/text/chat' instead.",
+                "id": "api_legacy"
+            }
+        ]
+    }
+}

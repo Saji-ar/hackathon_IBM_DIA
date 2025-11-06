@@ -14,3 +14,7 @@ __pycache__/
 # Fichiers système
 .DS_Store
 Thumbs.db
+
+# ...existing code...
+.env
+/source/.env
