@@ -1,0 +1,6 @@
+streamlit 
+pandas
+lancedb
+sentence-transformers
+ibm-watsonx-ai 
+langdetect
