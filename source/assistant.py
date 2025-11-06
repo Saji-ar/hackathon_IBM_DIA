@@ -1,12 +1,12 @@
 import json
 from ibm_watsonx_ai.foundation_models import ModelInference
 from ibm_watsonx_ai import Credentials
-from search_question import search_question  # ⚠️ Ton fichier précédent
+from source.search_question import search_question  # ⚠️ Ton fichier précédent
 from sentence_transformers import SentenceTransformer
 
 
 # --- IBM Watsonx credentials ---
-API_KEY = "J1v6WDcfLX2PtOojs3oLdEk6BUG2a0sMzyegju17ozPn"
+API_KEY = "-4"
 PROJECT_ID = "21e4c9cf-b356-4071-9b48-e5aeb3aa889f"
 REGION = "eu-de"
 
@@ -51,13 +51,13 @@ def school_assistant(question: str, school: str):
         f"--- Context ---\n{context}\n"
         f"--- Student question ---\n{question}\n\n"
         f"--- Your helpful answer ---"
-        f"give a simple and unique answer"
+        f"give a simple, unique and a short answer"
         
     )
 
     # Step 4️⃣ - Query the LLM
     params = {
-        "max_new_tokens": 400,
+        "max_new_tokens": 200,
         "temperature": 0.6,
         "repetition_penalty": 1.1
     }
