@@ -5,7 +5,7 @@
 Assistant conversationnel intelligent pour les écoles **ESILV** (École Supérieure d'Ingénieurs Léonard de Vinci) et **EMLV** (École de Management Léonard de Vinci). Ce chatbot utilise l'intelligence artificielle et le traitement du langage naturel pour répondre aux questions des étudiants de manière contextuelle et précise.
 
 Le projet combine :
-- 🤖 **IBM Watsonx AI** (Llama-3-3-70B) pour la génération de réponses
+- 🤖 **IBM Watsonx AI** (Mistral Medium 2505) pour la génération de réponses
 - 🔍 **RAG (Retrieval Augmented Generation)** avec LanceDB pour la recherche vectorielle
 - 🌐 **Interface Streamlit** pour une expérience utilisateur intuitive
 - 🌍 **Support multilingue** (Français/Anglais)
@@ -334,3 +334,4 @@ Pour toute question ou problème :
 ---
 
 **Made with ❤️ for ESILV & EMLV students**
+
